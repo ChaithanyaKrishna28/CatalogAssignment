@@ -1,5 +1,6 @@
 # CatalogAssignment
 Konda Chaithanya Krishna  (Shamir's Secret Sharing algorithm.)
+roll no:21211A05D4
 # Polynomial Secret Decoder
 
 This project implements a solution to decode a polynomial secret from a set of points. The points are provided in different base formats, which are decoded and used to perform Lagrange interpolation to find the secret (constant term) of the polynomial.
