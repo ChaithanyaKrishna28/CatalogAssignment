@@ -94,7 +94,7 @@ public class PolynomialSecret {
         return result;
     }
 
-    // extract the value  with a key
+    // extract the value with a key
     private static String extractValue(String block, String key) {
         int startIndex = block.indexOf(key);
         if (startIndex == -1) return null;
@@ -107,7 +107,7 @@ public class PolynomialSecret {
 
     public static void main(String[] args) {
         // Read the JSON file
-        String jsonData = readFile("test_case.json");
+        String jsonData = readFile("test_case2.json");
 
         // Parse
         Map<String, String> inputData = parseJson(jsonData);
@@ -130,26 +130,37 @@ public class PolynomialSecret {
             System.out.println("n = " + n + ", k = " + k);
 
             int[][] points = new int[n][2];
+            int pointCount = 0;  // To track the number of valid points
 
-          
             for (int i = 1; i <= n; i++) {
                 String baseKey = i + ".base";
                 String valueKey = i + ".value";
 
-                // extact base and value
+                // Extract base and value
                 String baseStr = inputData.get(baseKey);
                 String valueStr = inputData.get(valueKey);
 
+                // If either base or value is missing, skip this root
                 if (baseStr == null || valueStr == null) {
-                    throw new IllegalArgumentException("Missing base or value for root " + i);
+                    System.err.println("Warning: Missing base or value for root " + i);
+                    continue;
                 }
 
                 int base = Integer.parseInt(baseStr);
                 int decodedValue = decodeValue(base, valueStr);
 
-                // x,y
-                points[i - 1][0] = i;  // x = i
-                points[i - 1][1] = decodedValue; // decodedValue
+                // Store the point (x, y)
+                points[pointCount][0] = i;  // x = i
+                points[pointCount][1] = decodedValue;  // y = decodedValue
+                pointCount++;  // Increment valid points
+
+                if (pointCount == n) break;  // Stop if we've collected enough points
+            }
+
+            // Check if we have enough points
+            if (pointCount < n) {
+                System.err.println("Error: Not enough valid points for interpolation.");
+                return;
             }
 
             // Lagrange interpolation
