@@ -14,11 +14,42 @@ This project implements a solution to decode a polynomial secret from a set of p
 
 1. **Decode Values**: The program supports decoding of values in different bases (e.g., binary, hexadecimal, octal).
 2. **Lagrange Interpolation**: The program uses Lagrange interpolation to compute the secret based on the decoded points.
-3. **JSON Input**: The input data is read from a `test_case.json` file.
+3. **JSON Input**: The input data is read from a `test_case.json`,`test_case2.json` file.
 
 ## Input Format
+The `test_case2.json` file should contain data in the following format:
+```json
 
-The `test_case.json` file should contain data in the following format:
+
+{
+    "keys": {
+        "n": "4",
+        "k": "3"
+    },
+    "1": {
+        "base": "10",
+        "value": "4"
+    },
+    "2": {
+        "base": "2",
+        "value": "111"
+    },
+    "3": {
+        "base": "10",
+        "value": "12"
+    },
+    "4": {
+        "base": "10",
+        "value": "15"
+    },
+    "6": {
+        "base": "4",
+        "value": "213"
+    }
+}
+
+
+The `test_case2.json` file should contain data in the following format:
 ```json
 {
 "keys": {
@@ -66,3 +97,9 @@ The `test_case.json` file should contain data in the following format:
     "value": "1101613130313526312514143"
   }
 }
+
+output 1:-26
+output 2:371309049
+
+
+
